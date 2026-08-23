@@ -2,29 +2,36 @@ extends Node2D
 
 ## this file was to test if maaacks level_lost system works for us
 signal level_lost
+signal tutorial_finished
+
+const DIALOG_BOX = preload("res://scenes/ui/dialog_box.tscn")
 
 @export var level_boss: Boss
 
-@onready var dialog_box: DialogBox = %DialogBox
-
 @onready var player: Player = %Player
+
+@onready var ui_layer: CanvasLayer = %UI
 
 var sucked_up_some_minions: bool = false
 var tried_shooting: bool = false
 
-var tutorial_done: bool = false
-
-#@export var boss_music 
+var current_dialog: DialogBox = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player.gun.able_to_shoot = false
 	player.gun.able_to_vacuum = false
-	EventBus.player_died.connect(_on_player_died)
 	AudioManager.stop_all_music(2)
 	
+	# TODO LOADING SCREEN
+	
+	intro()
+
+func intro() -> void:
 	await get_tree().create_timer(2.5).timeout
-	dialog_box.start_dialogue([
+	current_dialog = DIALOG_BOX.instantiate()
+	ui_layer.add_child(current_dialog)
+	current_dialog.start_dialogue([
 		{"name": "Static", "text": "uhh...?"},
 		{"name": "You", "text": "What???!?."},
 		{"name": "Static", "text": "??."},
@@ -62,13 +69,10 @@ func _ready() -> void:
 		{"name": "You", "text": "That feels ethically questionable."},
 		{"name": "Static", "text": "It's a GRAY AREA, not a crime scene. Point, trigger, done. I believe in you, disembodied-voice's-honor."},
 		{"name": "You", "text": "That is not a real thing you can swear on."},
-		{"name": "Static", "text": "It's the only thing I've got, work with me here. Now try it."}
+		{"name": "Static", "text": "It's the only thing I've got, work with me here. Now try it."},
+		{"name": "Static", "text": "Three of cuties should be more than enough."}
 	])
-	#dialog_box._advance()
-	
+	current_dialog.dialogue_finished.connect(_intro_dialog_finished)
 
-func _on_player_died() -> void:
-	AudioManager.stop_all_music(2)
-	AudioManager.play_music(MusicTrack.TRACK_TYPE.DEATH_SCREEN,0.5)
-	#AudioManager.get_managed_player("death_music_player").play()
-	level_lost.emit()
+func _intro_dialog_finished() -> void:
+	current_dialog.queue_free()

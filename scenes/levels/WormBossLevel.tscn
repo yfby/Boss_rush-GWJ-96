@@ -582,9 +582,11 @@ player = NodePath("../../Player")
 [node name="Player" parent="." unique_id=389095423 groups=["Player"] instance=ExtResource("2_vaiu2")]
 position = Vector2(70, 184)
 
-[node name="HUD" parent="." unique_id=1159893243 instance=ExtResource("5_5q67w")]
+[node name="UI" type="CanvasLayer" parent="." unique_id=152068370]
 
-[node name="BossHealtBar" type="TextureProgressBar" parent="HUD" unique_id=425040987 node_paths=PackedStringArray("boss")]
+[node name="HUD" parent="UI" unique_id=1159893243 instance=ExtResource("5_5q67w")]
+
+[node name="BossHealtBar" type="TextureProgressBar" parent="UI/HUD" unique_id=425040987 node_paths=PackedStringArray("boss")]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -604,9 +606,9 @@ texture_under = ExtResource("10_2tlee")
 texture_over = ExtResource("11_6c5ek")
 texture_progress = ExtResource("12_7p2x5")
 script = ExtResource("13_xm8io")
-boss = NodePath("../../Boss/WormBoss")
+boss = NodePath("../../../Boss/WormBoss")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HUD/BossHealtBar" unique_id=342488185]
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/HUD/BossHealtBar" unique_id=342488185]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
