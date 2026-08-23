@@ -15,7 +15,7 @@ var progress: CURRENT_LEVEL
 
 # Load new scene
 func _ready() -> void:
-	load_robot_level()
+	load_tutorial()
 
 func load_tutorial() -> void:
 	progress = CURRENT_LEVEL.TUTORIAL
@@ -36,7 +36,10 @@ func load_robot_level() -> void:
 	SceneManager.change_scene("res://scenes/levels/RobotBossLevel.tscn")
 	await SceneManager.level_loaded
 	SceneManager.current_level.player_died.connect(_death_screen)
-	#SceneManager.current_level.level_finished.connect(load_worm_level) # win screen
+	SceneManager.current_level.level_finished.connect(credits) # win screen
+
+func credits() -> void:
+	SceneManager.current_level.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _death_screen() -> void:
 	if death_screen == true:

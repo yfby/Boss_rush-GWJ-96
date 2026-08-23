@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://dtw5rt2xeyrno"]
+
+[node name="Credits" type="Control" unique_id=218080442]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=864822102]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12156863, 0.0627451, 0.16470589, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1876244104]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2090805818]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=123958479]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead Designer"
+
+[node name="Label6" type="Label" parent="MarginContainer/VBoxContainer" unique_id=573257900]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "  KAJARO"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1375702593]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lead Artist"
+
+[node name="Label7" type="Label" parent="MarginContainer/VBoxContainer" unique_id=533476924]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "  KingWing"
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1199879246]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Composer & Sound Designer"
+
+[node name="Label8" type="Label" parent="MarginContainer/VBoxContainer" unique_id=986162105]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "  vUest"
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer" unique_id=546786373]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Programmer"
+
+[node name="Label9" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1805270842]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "  Nejc"
+
+[node name="Label5" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1157434431]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Programmer"
+
+[node name="Label10" type="Label" parent="MarginContainer/VBoxContainer" unique_id=2101580266]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "  yfby"
