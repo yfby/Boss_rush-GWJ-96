@@ -78,11 +78,15 @@ _data = {
 &"spin": SubResource("Animation_fqeq6")
 }
 
-[node name="BossBase" type="CharacterBody2D" unique_id=2064250110 node_paths=PackedStringArray("shoot_point")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_5r1x3"]
+radius = 33.01515
+
+[node name="BossBase" type="CharacterBody2D" unique_id=2064250110 node_paths=PackedStringArray("shoot_point", "push_back_box")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_bm5vh")
 shoot_point = NodePath("shoot_point")
+push_back_box = NodePath("PushBackBox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1633009484]
 shape = SubResource("CircleShape2D_ndpnn")
@@ -129,3 +133,10 @@ metadata/_custom_type_script = "uid://belquh4lun4d1"
 [node name="StateTimer" type="Timer" parent="." unique_id=1094922412]
 
 [node name="shoot_point" type="Marker2D" parent="." unique_id=1755691206]
+
+[node name="PushBackBox" type="Area2D" parent="." unique_id=800154475]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushBackBox" unique_id=719718689]
+shape = SubResource("CircleShape2D_5r1x3")
+debug_color = Color(0.76139313, 0.41384694, 0.48994762, 0.41960785)

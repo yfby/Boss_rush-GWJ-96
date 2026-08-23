@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://be1k6ll6vksc2"]
+
+[ext_resource type="PackedScene" uid="uid://dqw0lryrtcdtn" path="res://scenes/shots/shot_base.tscn" id="1_afaof"]
+[ext_resource type="PackedScene" uid="uid://yegaluim1dyv" path="res://scenes/projectiles/Fireball_projectile.tscn" id="2_rc5lf"]
+
+[node name="FireShot" unique_id=1113263127 instance=ExtResource("1_afaof")]
+projectiles = Array[PackedScene]([ExtResource("2_rc5lf"), ExtResource("2_rc5lf"), ExtResource("2_rc5lf")])
+spread = 45.0

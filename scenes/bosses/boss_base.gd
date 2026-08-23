@@ -3,6 +3,8 @@ class_name Boss
 
 @export var shoot_point: Marker2D
 @export var player: Player
+@export var push_back_box: Area2D
+@export var damage_on_pushback: float = 10
 
 @export var max_health: float = 500
 @export var current_health: float = 500:
@@ -12,6 +14,11 @@ class_name Boss
 		if current_health == 0:
 			EventBus.boss_died.emit()
 		
+
+func _ready() -> void:
+	if push_back_box:
+		push_back_box.body_entered.connect(push_away)
+
 
 
 func _physics_process(delta: float) -> void:
@@ -28,3 +35,12 @@ func take_damage(amount: float) -> bool:
 	
 	## currently just return true becuse boss has no invincible attacks
 	return true
+
+func push_away(body) -> void:
+	if body is Player:
+		body.external_velocity -= (global_position - body.global_position).normalized() * 500
+		body.take_damage(damage_on_pushback)
+
+
+func _on_push_back_box_body_entered(body: Node2D) -> void:
+	push_away(body)

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cg7c0k6akh3ih"]
+
+[ext_resource type="Script" uid="uid://bbcdnf8gr2ito" path="res://scripts/weapon/projectile.gd" id="1_0muee"]
+[ext_resource type="Texture2D" uid="uid://eujy5j8tlopn" path="res://assets/sprites/minions/ice_minion.png" id="2_hipl4"]
+[ext_resource type="Script" uid="uid://c8okbg2doh58w" path="res://resources/projectiles/projectile_data.gd" id="2_u316h"]
+
+[sub_resource type="Resource" id="Resource_u316h"]
+script = ExtResource("2_u316h")
+texture = null
+damage = 15.0
+metadata/_custom_type_script = "uid://c8okbg2doh58w"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ndpnn"]
+radius = 7.0
+
+[node name="IceProjectile" type="Area2D" unique_id=1927975741 node_paths=PackedStringArray("visual")]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_0muee")
+data = SubResource("Resource_u316h")
+speed = 60.0
+visual = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://bbcdnf8gr2ito"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1325110545]
+shape = SubResource("CircleShape2D_ndpnn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1549470071]
+texture = ExtResource("2_hipl4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

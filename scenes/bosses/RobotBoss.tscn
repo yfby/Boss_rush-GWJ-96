@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://gud2nptnrs44"]
+
+[ext_resource type="Script" uid="uid://c6260uad3rm10" path="res://scenes/bosses/boss_base.gd" id="1_mk53j"]
+[ext_resource type="Texture2D" uid="uid://gwjgsjrdc4yb" path="res://assets/sprites/boss/robot_body.png" id="2_apyab"]
+[ext_resource type="Script" uid="uid://b3u8k1jh287mx" path="res://scenes/bosses/state_machine.gd" id="3_73sjl"]
+[ext_resource type="Script" uid="uid://bh75rovkwkxd3" path="res://scenes/states/boss_idle.gd" id="4_h2pek"]
+[ext_resource type="Script" uid="uid://belquh4lun4d1" path="res://scenes/states/boss_attack.gd" id="5_kwfme"]
+[ext_resource type="Script" uid="uid://c4ace7p41b03q" path="res://scenes/bosses/attacks/new_script.gd" id="6_mve0p"]
+[ext_resource type="Script" uid="uid://6q4pach4r8bn" path="res://scenes/states/boss_follow.gd" id="6_vrivi"]
+[ext_resource type="Texture2D" uid="uid://b8ggth7oduxg6" path="res://assets/sprites/boss/robot_guns.png" id="7_73sjl"]
+[ext_resource type="PackedScene" uid="uid://be4642osyylyf" path="res://scenes/shots/premade_shots/ice_earth_shot.tscn" id="7_4404x"]
+[ext_resource type="PackedScene" uid="uid://s6v1dq028x6n" path="res://scenes/shots/premade_shots/earth_lightning_shot.tscn" id="8_3q426"]
+[ext_resource type="PackedScene" uid="uid://pv2kmal5dosi" path="res://scenes/shots/premade_shots/earth_fire_shot.tscn" id="8_mve0p"]
+[ext_resource type="PackedScene" uid="uid://dvf54onr24oho" path="res://scenes/shots/premade_shots/earth_shot.tscn" id="10_4404x"]
+[ext_resource type="PackedScene" uid="uid://tfmhlj5h26th" path="res://scenes/shots/premade_shots/ice_earth_lightning_shot.tscn" id="11_bkv5x"]
+[ext_resource type="PackedScene" uid="uid://d12wwwau6sw28" path="res://scenes/shots/premade_shots/fire_earth_lightning_shot.tscn" id="12_a7okq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5r1x3"]
+
+[sub_resource type="Animation" id="Animation_73sjl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShootPoint/Gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h2pek"]
+resource_name = "shoot"
+length = 0.7500125
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShootPoint/Gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.375, 0.5, 0.7500125),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 0), Vector2(-1, 0), Vector2(1, 0), Vector2(2, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kwfme"]
+_data = {
+&"RESET": SubResource("Animation_73sjl"),
+&"shoot": SubResource("Animation_h2pek")
+}
+
+[sub_resource type="Resource" id="Resource_4404x"]
+script = ExtResource("6_mve0p")
+shot_data = ExtResource("7_4404x")
+metadata/_custom_type_script = "uid://c4ace7p41b03q"
+
+[sub_resource type="Resource" id="Resource_3q426"]
+script = ExtResource("6_mve0p")
+shot_data = ExtResource("8_mve0p")
+metadata/_custom_type_script = "uid://c4ace7p41b03q"
+
+[sub_resource type="Resource" id="Resource_bkv5x"]
+script = ExtResource("6_mve0p")
+shot_data = ExtResource("8_3q426")
+metadata/_custom_type_script = "uid://c4ace7p41b03q"
+
+[sub_resource type="Resource" id="Resource_a7okq"]
+script = ExtResource("6_mve0p")
+anim_name = &"shoot"
+shot_data = ExtResource("10_4404x")
+metadata/_custom_type_script = "uid://c4ace7p41b03q"
+
+[sub_resource type="Resource" id="Resource_xye1i"]
+script = ExtResource("6_mve0p")
+anim_name = &"shoot"
+shot_data = ExtResource("11_bkv5x")
+metadata/_custom_type_script = "uid://c4ace7p41b03q"
+
+[sub_resource type="Resource" id="Resource_6ss6m"]
+script = ExtResource("6_mve0p")
+anim_name = &"shoot"
+shot_data = ExtResource("12_a7okq")
+metadata/_custom_type_script = "uid://c4ace7p41b03q"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5xojl"]
+radius = 14.0
+height = 36.0
+
+[node name="RobotBoss" type="CharacterBody2D" unique_id=971887698 node_paths=PackedStringArray("shoot_point", "push_back_box")]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_mk53j")
+shoot_point = NodePath("ShootPoint")
+push_back_box = NodePath("PushBackBox")
+metadata/_custom_type_script = "uid://c6260uad3rm10"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1946621447]
+shape = SubResource("CapsuleShape2D_5r1x3")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=870599937]
+texture = ExtResource("2_apyab")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2041346123]
+libraries/ = SubResource("AnimationLibrary_kwfme")
+
+[node name="StateMachine" type="Node" parent="." unique_id=462446462 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_73sjl")
+initial_state = NodePath("BossIdle")
+metadata/_custom_type_script = "uid://b3u8k1jh287mx"
+
+[node name="BossIdle" type="Node" parent="StateMachine" unique_id=1082870191 node_paths=PackedStringArray("timer", "boss", "animation_player", "sprite", "transition_States")]
+script = ExtResource("4_h2pek")
+timer = NodePath("../../StateTimer")
+boss = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+sprite = NodePath("../../Body")
+transition_States = [NodePath("../BossAttack"), NodePath("../BossFollow")]
+metadata/_custom_type_script = "uid://bh75rovkwkxd3"
+
+[node name="BossAttack" type="Node" parent="StateMachine" unique_id=1582281305 node_paths=PackedStringArray("timer", "boss", "animation_player", "sprite", "transition_States")]
+script = ExtResource("5_kwfme")
+timer = NodePath("../../StateTimer")
+attacks = Array[ExtResource("6_mve0p")]([SubResource("Resource_4404x"), SubResource("Resource_3q426"), SubResource("Resource_bkv5x"), SubResource("Resource_a7okq"), SubResource("Resource_xye1i"), SubResource("Resource_6ss6m")])
+boss = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+sprite = NodePath("../../Body")
+transition_States = [NodePath("../BossIdle"), NodePath("../BossFollow")]
+metadata/_custom_type_script = "uid://belquh4lun4d1"
+
+[node name="BossFollow" type="Node" parent="StateMachine" unique_id=1664244764 node_paths=PackedStringArray("timer", "boss", "animation_player", "sprite", "transition_States")]
+script = ExtResource("6_vrivi")
+max_state_time = 3.0
+timer = NodePath("../../StateTimer")
+boss = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+sprite = NodePath("../../Body")
+transition_States = [NodePath("../BossAttack")]
+metadata/_custom_type_script = "uid://6q4pach4r8bn"
+
+[node name="StateTimer" type="Timer" parent="." unique_id=1157721531]
+
+[node name="ShootPoint" type="Marker2D" parent="." unique_id=2071962841]
+position = Vector2(14, 0)
+
+[node name="Gun" type="Sprite2D" parent="ShootPoint" unique_id=1208565604]
+position = Vector2(2, 0)
+texture = ExtResource("7_73sjl")
+hframes = 2
+
+[node name="PushBackBox" type="Area2D" parent="." unique_id=702353174]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushBackBox" unique_id=1883713769]
+shape = SubResource("CapsuleShape2D_5xojl")
+debug_color = Color(0.77955854, 0.39694762, 0.49714595, 0.41960785)
+
+[connection signal="body_entered" from="PushBackBox" to="." method="_on_push_back_box_body_entered"]

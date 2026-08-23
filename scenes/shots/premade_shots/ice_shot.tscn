@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b0vi5tcd4hhlh"]
+
+[ext_resource type="PackedScene" uid="uid://dqw0lryrtcdtn" path="res://scenes/shots/shot_base.tscn" id="1_s1gyd"]
+[ext_resource type="PackedScene" uid="uid://cg7c0k6akh3ih" path="res://scenes/projectiles/Ice_projectile.tscn" id="2_6khvv"]
+
+[node name="IceShot" unique_id=1113263127 instance=ExtResource("1_s1gyd")]
+projectiles = Array[PackedScene]([ExtResource("2_6khvv"), ExtResource("2_6khvv"), ExtResource("2_6khvv")])
+spread = 30.0
