@@ -4,6 +4,8 @@ extends Node2D
 signal player_died
 signal level_finished
 
+@export var health_bar: BossHealthBar
+
 const DIALOG_BOX = preload("res://scenes/ui/dialog_box.tscn")
 
 const WORM_BOSS = preload("res://scenes/bosses/WormBossComplete.tscn")
@@ -19,7 +21,7 @@ var earthquake: bool = false
 var little_earthquake: bool = false
 
 var current_boss: WormBoss
-var boss_health_ui: BossHealthBar
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -80,8 +82,8 @@ func giant_worm_spawns() -> void:
 	current_boss.position = %BossLocationSpawn.position
 	%Boss.add_child(current_boss)
 	
-	boss_health_ui = BOSS_HEALTH_BAR.instantiate()
-	ui_layer.add_child(boss_health_ui)
+	health_bar.visible = true
+	health_bar.boss = current_boss.main_head
 
 func worm_dead() -> void:
 	print("worm is dead")
