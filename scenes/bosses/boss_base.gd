@@ -16,6 +16,7 @@ class_name Boss
 		
 
 func _ready() -> void:
+	EventBus.boss_get_max_health.emit(max_health)
 	if push_back_box:
 		push_back_box.body_entered.connect(push_away)
 

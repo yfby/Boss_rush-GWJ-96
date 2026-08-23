@@ -1,7 +1,7 @@
 extends Node2D
 
 ## this file was to test if maaacks level_lost system works for us
-signal level_lost
+signal player_died
 signal level_finished
 
 const DIALOG_BOX = preload("res://scenes/ui/dialog_box.tscn")
@@ -9,7 +9,7 @@ const TASK_DISPLAY = preload("res://scenes/ui/task_display.tscn")
 
 @onready var player: Player = %Player
 
-@onready var ui_layer: CanvasLayer = %UI
+@onready var ui_layer: CanvasLayer
 
 var sucked_up_some_minions: bool = false
 var tried_shooting: bool = false
@@ -17,8 +17,12 @@ var tried_shooting: bool = false
 var current_dialog: DialogBox = null
 var current_task: TaskDisplay = null
 
+var earthquake: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	ui_layer = $UI
+	
 	AudioManager.stop_all_music(2)
 	AudioManager.play_music(MusicTrack.TRACK_TYPE.TUTORIAL_LEVEL, 2) #paly tutorial music
 	
@@ -31,6 +35,9 @@ func _process(delta: float) -> void:
 	if sucked_up_some_minions == false and player.gun.gun_storage.size() >= 3:
 		sucked_up_some_minions = true
 		tried_vacuuming()
+	
+	if earthquake == true:
+		player.camera.shake_continuous(1.0)
 
 func intro() -> void:
 	player.gun.able_to_shoot = false
@@ -115,29 +122,41 @@ func on_shot_fired(shot_name: String) -> void:
 	
 	current_dialog.start_dialogue([
 		{"name": "You", "text": "I DID IT. Steve's gone. Steve's just... gone."},
-		{"name": "Static", "text": "Steve's fine. Probably. Statistically speaking."},
+		{"name": "Static", "text": "Probably fine. Statistically speaking."},
 		{"name": "You", "text": "This feels like a lot of responsibility for someone who woke up ten minutes ago."},
-		{"name": "Static", "text": "Relax, you've got moves. \"Shift\" to dash, in case something out here wants you dead."},
-		{"name": "You", "text": "Something out here wants me dead?"},
-		{"name": "Static", "text": "Statistically speaking. Oh, and \"E\" to heal, if the dashing doesn't work out."},
-		{"name": "You", "text": "That's very reassuring, thank you."},
-		{"name": "Static", "text": "Don't mention it. Alright, that's the tour. Go on, get out there."},
-		{"name": "You", "text": "Wait, where are YOU going?"},
-		{"name": "Static", "text": "Nowhere! I'm always around. Somewhere. Vaguely. Anyway, good luck!"},
-		{"name": "You", "text": "That's not an answer—"}
+		{"name": "Static", "text": "Relax, you've got moves. Shift to dash, E to heal. Standard stuff."},
+		{"name": "You", "text": "Comforting. Thanks."},
+		{"name": "Static", "text": "Don't mention it. Alright, that's the tour. Go on, get—"},
+		{"name": "Static", "text": "...huh."},
+		{"name": "You", "text": "Why do you say 'huh' like that?"},
 	])
 	
 	current_dialog.dialogue_finished.connect(_shooting_dialog_finished)
 
 func _shooting_dialog_finished() -> void:
 	current_dialog.queue_free()
-	await get_tree().create_timer(5.0).timeout
+	
+	earthquake = true
+	
+	current_dialog = DIALOG_BOX.instantiate()
+	ui_layer.add_child(current_dialog)
+	current_dialog.start_dialogue([
+		{"name": "Static", "text": "No reason. Ignore—"},
+		{"name": "You", "text": "WHOA— the ground—"}
+	])
+	
+	current_dialog.dialogue_finished.connect(_earthquake)
+
+func _earthquake() -> void:
+	current_dialog.queue_free()
+	
+	await get_tree().create_timer(2.0).timeout
 	
 	# tutorial done!
 	level_finished.emit()
 
+
+
 func _on_player_died() -> void:
-	AudioManager.stop_all_music(2)
-	AudioManager.play_music(MusicTrack.TRACK_TYPE.DEATH_SCREEN,0.5)
-	#AudioManager.get_managed_player("death_music_player").play()
-	level_lost.emit()
+	ui_layer.queue_free()
+	player_died.emit()

@@ -4,3 +4,6 @@
 
 [node name="Main" type="Node" unique_id=1928327246]
 script = ExtResource("1_o5qli")
+
+[node name="SystemUI" type="CanvasLayer" parent="." unique_id=1547841736]
+unique_name_in_owner = true

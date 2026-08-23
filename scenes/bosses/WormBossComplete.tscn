@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://6tpjvfei03ap"]
+
+[ext_resource type="PackedScene" uid="uid://bua8f8a030gjb" path="res://scenes/bosses/worm_part.tscn" id="1_230qt"]
+[ext_resource type="Script" uid="uid://dwhi15tsiy30b" path="res://scenes/bosses/worm_boss_complete.gd" id="1_s3mvt"]
+[ext_resource type="PackedScene" uid="uid://b3nbegpoiyrx4" path="res://scenes/bosses/Worm_boss.tscn" id="2_s3mvt"]
+
+[node name="WormBoss" type="Node2D" unique_id=2064505090]
+script = ExtResource("1_s3mvt")
+
+[node name="WormPart6" parent="." unique_id=769181568 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("1_230qt")]
+part_to_follow = NodePath("../WormPart5")
+
+[node name="WormPart5" parent="." unique_id=266222469 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("1_230qt")]
+part_to_follow = NodePath("../WormPart4")
+
+[node name="WormPart4" parent="." unique_id=2072298249 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("1_230qt")]
+part_to_follow = NodePath("../WormPart3")
+
+[node name="WormPart3" parent="." unique_id=185121352 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("1_230qt")]
+part_to_follow = NodePath("../WormPart2")
+
+[node name="WormPart2" parent="." unique_id=58442933 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("1_230qt")]
+part_to_follow = NodePath("../WormPart")
+
+[node name="WormPart" parent="." unique_id=780064793 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("1_230qt")]
+part_to_follow = NodePath("../WormBoss")
+
+[node name="WormBoss" parent="." unique_id=171649054 instance=ExtResource("2_s3mvt")]
+unique_name_in_owner = true

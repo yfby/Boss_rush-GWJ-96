@@ -3,38 +3,57 @@ extends Node
 signal level_loaded
 
 var current_level: Node = null
+var current_path: String = ""
+var is_changing_scene: bool = false
+
 #var loading_screen_scene = preload("res://ui/loading_screen.tscn")
-var current_path: String # for checking, and restarting scence logic
 
 func change_scene(path: String) -> void:
-	call_deferred("_deferred_change_scene", path)
+	if is_changing_scene:
+		push_warning("SceneManager: change_scene ignored, already changing scene.")
+		return
 	current_path = path
+	call_deferred("_deferred_change_scene", path)
+
 
 func restart_scence() -> void:
-	# FIX: Must use call_deferred here too to prevent thread-safety crashes
+	if current_path == "":
+		push_warning("SceneManager: no current_path set, can't restart.")
+		return
+	if is_changing_scene:
+		push_warning("SceneManager: restart ignored, already changing scene.")
+		return
 	call_deferred("_deferred_change_scene", current_path)
 
+
 func _deferred_change_scene(path: String) -> void:
+	is_changing_scene = true
 	# TODO: INSTANTIATE LOADING SCREEN HERE
-	
-	if current_level:
-		var old_level = current_level
+
+	if is_instance_valid(current_level):
+		var old_level := current_level
+		current_level = null  # clear immediately so nothing grabs a stale ref mid-await
 		old_level.queue_free()
-		# FIX: Wait until the old scene is fully removed from memory
-		await old_level.tree_exited 
-		
-	var new_scene: Node = load(path).instantiate()
-	
+		await old_level.tree_exited
+
+	var packed_scene: PackedScene = load(path)
+	if packed_scene == null:
+		push_error("SceneManager: failed to load scene at path: %s" % path)
+		is_changing_scene = false
+		return
+
+	var new_scene: Node = packed_scene.instantiate()
+
 	# Add to root tree safely
 	get_tree().root.add_child(new_scene)
 	get_tree().current_scene = new_scene
 	current_level = new_scene
-	
+
 	# Correctly wait for the new scene setup to finish
-	# await new_child.ready # idk why this doesnt work?!!
 	await get_tree().process_frame
-	
-	print("Level readyd")
+
+	print("Level ready")
 	level_loaded.emit()
-	
+	is_changing_scene = false
+
 	# TODO: FREE LOADING SCREEN HERE

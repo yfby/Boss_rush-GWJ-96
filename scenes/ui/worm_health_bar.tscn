@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://c3scv821p5v6e"]
+
+[ext_resource type="Texture2D" uid="uid://cpg8omxk0vo2e" path="res://assets/sprites/ui/health bar/health_bar_under.png" id="1_rf0wo"]
+[ext_resource type="Texture2D" uid="uid://bwj8kneuej84y" path="res://assets/sprites/ui/health bar/health_bar_outline.png" id="2_ajqbj"]
+[ext_resource type="Texture2D" uid="uid://36rliefn0d5o" path="res://assets/sprites/ui/health bar/health_bar_progress.png" id="3_30tix"]
+[ext_resource type="Script" uid="uid://de3seswa3a761" path="res://scripts/boss/boss_healt_bar.gd" id="4_wriml"]
+
+[node name="BossHealtBar" type="TextureProgressBar" unique_id=278089460]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -179.0
+offset_top = 11.0
+offset_right = -97.40625
+offset_bottom = 17.0
+grow_horizontal = 2
+scale = Vector2(4, 4)
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("1_rf0wo")
+texture_over = ExtResource("2_ajqbj")
+texture_progress = ExtResource("3_30tix")
+script = ExtResource("4_wriml")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1583624064]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -19.046875
+offset_top = 4.0
+offset_right = 32.40625
+offset_bottom = 13.5
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "WORM OF APOCALYPSE"
