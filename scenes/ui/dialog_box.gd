@@ -9,7 +9,7 @@ signal dialogue_finished
 var lines: Array = []
 var current_line: int = 0
 var is_typing: bool = false
-var char_speed: float = 0.02
+var char_speed: float = 0.01
 
 func _ready() -> void:
 	hide()
@@ -26,6 +26,7 @@ func _show_line(index: int) -> void:
 	name_label.text = entry.get("name", "")
 	dialogue_label.text = ""
 	is_typing = true
+	AudioManager.play_audio(SoundEffect.SOUND_EFFECT_TYPE.DIALOG)
 	var full_text: String = entry["text"]
 	for i in full_text.length():
 		if not is_typing:

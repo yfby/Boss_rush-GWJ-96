@@ -108,6 +108,7 @@ func _physics_process(_delta: float) -> void:
 				
 				# Adds the minion into the ammo
 				if global_position.distance_to(minion.global_position) < 30:
+					AudioManager.play_audio(SoundEffect.SOUND_EFFECT_TYPE.PICKUP_MINION)
 					minion.collect()
 					add_ammo(minion.element)
 					minions_in_vacuum.erase(minion)

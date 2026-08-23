@@ -20,6 +20,8 @@ extends Resource
 ## Example: FOOTSTEP, PLAYER_JUMP, EXPLOSION
 enum SOUND_EFFECT_TYPE {
 	UNASSIGNED_SOUND, # Add new sounds below this line, separated by commas
+	DIALOG,
+	PICKUP_MINION,
 	BEEPS,
 	CANNON,
 	CANNON2,
