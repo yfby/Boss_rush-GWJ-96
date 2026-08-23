@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cmoxpy3376lnj"]
+
+[ext_resource type="PackedScene" uid="uid://dqw0lryrtcdtn" path="res://scenes/shots/shot_base.tscn" id="1_pvhjd"]
+[ext_resource type="PackedScene" uid="uid://c2gx41gb87oha" path="res://scenes/projectiles/FireIceLightning_projectile.tscn" id="2_pcevi"]
+
+[node name="FireIceLightningShot" unique_id=1113263127 instance=ExtResource("1_pvhjd")]
+projectiles = Array[PackedScene]([ExtResource("2_pcevi")])

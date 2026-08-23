@@ -4,6 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://b843o1477hfgo" path="res://scenes/projectiles/LightningIcicle.tscn" id="2_5xehf"]
 
 [node name="iceLightningShot" unique_id=1113263127 instance=ExtResource("1_j4lsr")]
-projectiles = Array[PackedScene]([ExtResource("2_5xehf"), ExtResource("2_5xehf"), ExtResource("2_5xehf")])
+projectiles = Array[PackedScene]([ExtResource("2_5xehf"), ExtResource("2_5xehf")])
 interval = 0.05
 spread = 30.0

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://d12wwwau6sw28"]
+
+[ext_resource type="PackedScene" uid="uid://dqw0lryrtcdtn" path="res://scenes/shots/shot_base.tscn" id="1_0xurq"]
+[ext_resource type="PackedScene" uid="uid://cp12hr1o3d5ab" path="res://scenes/projectiles/FireEarthLightning_projectile.tscn" id="2_yo1yu"]
+
+[node name="FireEarthLightningShot" unique_id=1113263127 instance=ExtResource("1_0xurq")]
+projectiles = Array[PackedScene]([ExtResource("2_yo1yu")])

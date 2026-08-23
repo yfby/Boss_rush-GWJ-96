@@ -4,19 +4,19 @@ var combos: Dictionary = {
 	## single element
 	"fireball": {
 		"recepie": { Type.elements.FIRE : 3 },
-		"shot_data": preload("res://scenes/shots/premade_shots/spread_shot.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/fire_shot.tscn")
 	},
 	"icicle":{
 		"recepie": { Type.elements.ICE : 3 },
-		"shot_data": preload("res://scenes/shots/premade_shots/burst.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/ice_shot.tscn")
 	},
 	"boulder":{
 		"recepie": { Type.elements.EARTH : 3 },
-		"shot_data": preload("res://scenes/shots/premade_shots/burst.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/earth_shot.tscn")
 	},
 	"lightning":{
 		"recepie": { Type.elements.LIGHTNING : 3 },
-		"shot_data": preload("res://scenes/shots/premade_shots/burst.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/lightning_shot.tscn")
 	},
 	
 	## 2 differnt elements
@@ -48,19 +48,19 @@ var combos: Dictionary = {
 	## 3 different types
 	"supercharged water orb": {
 		"recepie": { Type.elements.FIRE : 1, Type.elements.ICE : 1, Type.elements.LIGHTNING : 1 },
-		"shot_data": preload("res://scenes/shots/premade_shots/spread_shot.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/fire_ice_lightning_shot.tscn")
 	},
 	"fire water boulder": {
 		"recepie": { Type.elements.FIRE : 1, Type.elements.ICE : 1, Type.elements.EARTH : 1 },
-		"shot_data": preload("res://scenes/shots/premade_shots/spread_shot.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/fire_ice_earth_shot.tscn")
 	},
 	"lightning water boulder": {
 		"recepie": { Type.elements.LIGHTNING : 1, Type.elements.ICE : 1, Type.elements.EARTH : 1 },
-		"shot_data": preload("res://scenes/shots/premade_shots/spread_shot.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/ice_earth_lightning_shot.tscn")
 	},
 	"fire lightning earth": {
 		"recepie": { Type.elements.LIGHTNING : 1, Type.elements.FIRE : 1, Type.elements.EARTH : 1 },
-		"shot_data": preload("res://scenes/shots/premade_shots/spread_shot.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/fire_earth_lightning_shot.tscn")
 	},
 }
 

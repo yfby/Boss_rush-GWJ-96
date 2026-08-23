@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bjf8t4cai5rin"]
+
+[ext_resource type="Script" uid="uid://bbcdnf8gr2ito" path="res://scripts/weapon/projectile.gd" id="1_ghxxa"]
+[ext_resource type="Script" uid="uid://c8okbg2doh58w" path="res://resources/projectiles/projectile_data.gd" id="2_mwjkc"]
+[ext_resource type="Texture2D" uid="uid://ca1jn0j5ljo08" path="res://assets/sprites/mixed_projectiles.png" id="2_ym20r"]
+
+[sub_resource type="Resource" id="Resource_7p2x5"]
+script = ExtResource("2_mwjkc")
+texture = null
+damage = 80.0
+metadata/_custom_type_script = "uid://c8okbg2doh58w"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ndpnn"]
+radius = 8.0
+
+[node name="FireIceEarthProjectile" type="Area2D" unique_id=492658341]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_ghxxa")
+data = SubResource("Resource_7p2x5")
+speed = 120.0
+metadata/_custom_type_script = "uid://bbcdnf8gr2ito"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1115256900]
+shape = SubResource("CircleShape2D_ndpnn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1972645462]
+texture = ExtResource("2_ym20r")
+hframes = 6
+vframes = 3
+frame = 13
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

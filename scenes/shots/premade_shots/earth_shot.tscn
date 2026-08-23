@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dvf54onr24oho"]
+
+[ext_resource type="PackedScene" uid="uid://dqw0lryrtcdtn" path="res://scenes/shots/shot_base.tscn" id="1_hbx0k"]
+[ext_resource type="PackedScene" uid="uid://dbo4a1e2e0vhp" path="res://scenes/projectiles/Earth_projetile.tscn" id="2_onluo"]
+
+[node name="EarthShot" unique_id=1113263127 instance=ExtResource("1_hbx0k")]
+projectiles = Array[PackedScene]([ExtResource("2_onluo"), ExtResource("2_onluo"), ExtResource("2_onluo")])
+spread = 75.0
