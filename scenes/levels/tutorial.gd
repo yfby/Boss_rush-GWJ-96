@@ -2,11 +2,10 @@ extends Node2D
 
 ## this file was to test if maaacks level_lost system works for us
 signal level_lost
-signal tutorial_finished
+signal level_finished
 
 const DIALOG_BOX = preload("res://scenes/ui/dialog_box.tscn")
-
-@export var level_boss: Boss
+const TASK_DISPLAY = preload("res://scenes/ui/task_display.tscn")
 
 @onready var player: Player = %Player
 
@@ -16,21 +15,32 @@ var sucked_up_some_minions: bool = false
 var tried_shooting: bool = false
 
 var current_dialog: DialogBox = null
+var current_task: TaskDisplay = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player.gun.able_to_shoot = false
-	player.gun.able_to_vacuum = false
 	AudioManager.stop_all_music(2)
+	AudioManager.play_music(MusicTrack.TRACK_TYPE.TUTORIAL_LEVEL, 2) #paly tutorial music
 	
-	# TODO LOADING SCREEN
+	EventBus.player_died.connect(_on_player_died)
+	#EventBus.shot_fired.connect(_on_shot_fired)
 	
 	intro()
 
+func _process(delta: float) -> void:
+	if sucked_up_some_minions == false and player.gun.gun_storage.size() >= 3:
+		sucked_up_some_minions = true
+		tried_vacuuming()
+
 func intro() -> void:
+	player.gun.able_to_shoot = false
+	player.gun.able_to_vacuum = false
+	
 	await get_tree().create_timer(2.5).timeout
+	
 	current_dialog = DIALOG_BOX.instantiate()
 	ui_layer.add_child(current_dialog)
+	
 	current_dialog.start_dialogue([
 		{"name": "Static", "text": "uhh...?"},
 		{"name": "You", "text": "What???!?."},
@@ -38,41 +48,96 @@ func intro() -> void:
 		{"name": "You", "text": "Where... am I? Why does the ground look like burnt toast?"},
 		{"name": "Static", "text": "Oh good, you're awake. I was starting to think I dragged a corpse out here for nothing."},
 		{"name": "You", "text": "Who said that?! Show yourself!"},
-		{"name": "Static", "text": "I would, but that's not really how this works."},
-		{"name": "You", "text": "...I'm looking directly at where the voice is coming from and there is NOTHING there."},
-		{"name": "Static", "text": "Yeah, that tracks. You get used to it."},
+		{"name": "Static", "text": "I would, but that's not really how this works. You get used to it."},
 		{"name": "You", "text": "I will NOT be getting used to it."},
-		{"name": "Static", "text": "That's what the last guy said too."},
-		{"name": "You", "text": "...the last guy?"},
-		{"name": "Static", "text": "Different story! Anyway, congrats on the amnesia. Very trendy. Very mysterious-protagonist energy."},
-		{"name": "You", "text": "I don't even know my own name, and now I'm being haunted."},
-		{"name": "Static", "text": "I prefer 'guided.' Haunted implies I have bad intentions."},
-		{"name": "You", "text": "Do you?"},
-		{"name": "Static", "text": "I mean, define 'bad.'"},
-		{"name": "You", "text": "That is not the response of an innocent voice."},
-		{"name": "Static", "text": "Moving on! Wait, what's THIS thing stuck to my arm?"},
-		{"name": "You", "text": "That was MY line, I was about to say that."},
-		{"name": "Static", "text": "I know, I got excited. Give me a second, I'll walk you through it."},
-		{"name": "Static", "text": "That's a cannon. Also a vacuum. Don't overthink it."},
-		{"name": "You", "text": "How does something be both of those things."},
-		{"name": "Static", "text": "Badly, mostly. But it works. Trigger once, it sucks stuff in. Trigger again, it shoots stuff out."},
-		{"name": "You", "text": "So it's a straw."},
-		{"name": "Static", "text": "It is not a straw."},
-		{"name": "You", "text": "It's a violent straw."},
-		{"name": "Static", "text": "It's an ARTIFACT OF ANCIENT POWER, but sure, 'straw' works too, whatever helps you sleep."},
-		{"name": "You", "text": "Sucks WHAT in, exactly?"},
-		{"name": "Static", "text": "Oh, see that little glowing thing floating by the rocks? Try it on that."},
-		{"name": "You", "text": "That's... a tiny glowing thing. It looks like it's judging me."},
-		{"name": "Static", "text": "That's an Elemental. Cute little guys, aren't they? Fire, ice, lightning, that sort of thing. Wander around like lost puppies."},
+		{"name": "Static", "text": "That's what the last guy said too. Anyway, congrats on the amnesia. Very mysterious-protagonist energy."},
+		{"name": "You", "text": "Wait, what's THIS thing stuck to my arm?"},
+		{"name": "Static", "text": "Oh, that! Two triggers. Right one's a vacuum, left one's a cannon."},
+		{"name": "You", "text": "So it's a violent straw."},
+		{"name": "Static", "text": "It's an ARTIFACT OF ANCIENT POWER, but sure, 'straw' works too."},
+		{"name": "You", "text": "Suck WHAT up, exactly?"},
+		{"name": "Static", "text": "See that glowing thing by the rocks? That's an Elemental. Cute little guys. Wander around like lost puppies."},
 		{"name": "You", "text": "Can I pet it?"},
-		{"name": "Static", "text": "You can suck it into your cannon, which is basically the same thing. Emotionally."},
+		{"name": "Static", "text": "You can vacuum it into your cannon, which is basically the same thing. Emotionally."},
 		{"name": "You", "text": "That feels ethically questionable."},
-		{"name": "Static", "text": "It's a GRAY AREA, not a crime scene. Point, trigger, done. I believe in you, disembodied-voice's-honor."},
-		{"name": "You", "text": "That is not a real thing you can swear on."},
-		{"name": "Static", "text": "It's the only thing I've got, work with me here. Now try it."},
-		{"name": "Static", "text": "Three of cuties should be more than enough."}
+		{"name": "Static", "text": "GRAY AREA, not a crime scene. Left trigger. Try it."}
 	])
 	current_dialog.dialogue_finished.connect(_intro_dialog_finished)
 
 func _intro_dialog_finished() -> void:
 	current_dialog.queue_free()
+	
+	current_task = TASK_DISPLAY.instantiate()
+	ui_layer.add_child(current_task)
+	
+	current_task.task("Capture Elementals")
+	player.gun.able_to_vacuum = true
+
+func tried_vacuuming() -> void:
+	current_task.queue_free()
+	
+	current_dialog = DIALOG_BOX.instantiate()
+	ui_layer.add_child(current_dialog)
+	
+	current_dialog.start_dialogue([
+		{"name": "You", "text": "...okay, it's in there. It's just floating in the little chamber thing looking betrayed."},
+		{"name": "Static", "text": "Great! See, nobody died. Five stars, no notes."},
+		{"name": "You", "text": "Can I keep it? As a pet? I'll call him Steve."},
+		{"name": "Static", "text": "You can keep it as ammunition, which is the pet-adjacent option we offer."},
+		{"name": "You", "text": "That's horrifying. Steve deserves better."},
+		{"name": "Static", "text": "Steve will be fine. Steve is basically a bullet with feelings now."},
+		{"name": "You", "text": "I don't like the sound of that."},
+		{"name": "Static", "text": "You don't have to like it, you just have to trigger it. Go on, try shooting him out."}
+	])
+	current_dialog.dialogue_finished.connect(_vacuuming_dialog_finished)
+
+func _vacuuming_dialog_finished() -> void:
+	current_dialog.queue_free()
+	
+	current_task = TASK_DISPLAY.instantiate()
+	ui_layer.add_child(current_task)
+	
+	current_task.task("Shoot the little guy out")
+	
+	EventBus.shot_fired.connect(on_shot_fired)
+	player.gun.able_to_shoot = true
+
+func on_shot_fired(shot_name: String) -> void:
+	if tried_shooting == true:
+		return
+	
+	current_task.queue_free()
+	
+	tried_shooting = true
+	
+	current_dialog = DIALOG_BOX.instantiate()
+	ui_layer.add_child(current_dialog)
+	
+	current_dialog.start_dialogue([
+		{"name": "You", "text": "I DID IT. Steve's gone. Steve's just... gone."},
+		{"name": "Static", "text": "Steve's fine. Probably. Statistically speaking."},
+		{"name": "You", "text": "This feels like a lot of responsibility for someone who woke up ten minutes ago."},
+		{"name": "Static", "text": "Relax, you've got moves. \"Shift\" to dash, in case something out here wants you dead."},
+		{"name": "You", "text": "Something out here wants me dead?"},
+		{"name": "Static", "text": "Statistically speaking. Oh, and \"E\" to heal, if the dashing doesn't work out."},
+		{"name": "You", "text": "That's very reassuring, thank you."},
+		{"name": "Static", "text": "Don't mention it. Alright, that's the tour. Go on, get out there."},
+		{"name": "You", "text": "Wait, where are YOU going?"},
+		{"name": "Static", "text": "Nowhere! I'm always around. Somewhere. Vaguely. Anyway, good luck!"},
+		{"name": "You", "text": "That's not an answer—"}
+	])
+	
+	current_dialog.dialogue_finished.connect(_shooting_dialog_finished)
+
+func _shooting_dialog_finished() -> void:
+	current_dialog.queue_free()
+	await get_tree().create_timer(5.0).timeout
+	
+	# tutorial done!
+	level_finished.emit()
+
+func _on_player_died() -> void:
+	AudioManager.stop_all_music(2)
+	AudioManager.play_music(MusicTrack.TRACK_TYPE.DEATH_SCREEN,0.5)
+	#AudioManager.get_managed_player("death_music_player").play()
+	level_lost.emit()
