@@ -32,7 +32,6 @@ func robot_dead() -> void:
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	current_dialog.queue_free()
 	current_dialog = DIALOG_BOX.instantiate()
 	ui_layer.add_child(current_dialog)
 	

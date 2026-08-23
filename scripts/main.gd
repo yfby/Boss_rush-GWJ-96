@@ -15,7 +15,7 @@ var progress: CURRENT_LEVEL
 
 # Load new scene
 func _ready() -> void:
-	load_tutorial()
+	load_robot_level()
 
 func load_tutorial() -> void:
 	progress = CURRENT_LEVEL.TUTORIAL
@@ -39,7 +39,8 @@ func load_robot_level() -> void:
 	SceneManager.current_level.level_finished.connect(credits) # win screen
 
 func credits() -> void:
-	SceneManager.current_level.process_mode = Node.PROCESS_MODE_DISABLED
+	SceneManager.change_scene("res://scenes/ui/credits.tscn")
+	AudioManager.stop_all_music(2)
 
 func _death_screen() -> void:
 	if death_screen == true:
