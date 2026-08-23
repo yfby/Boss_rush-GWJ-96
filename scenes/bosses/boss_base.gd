@@ -12,8 +12,10 @@ class_name Boss
 		current_health = clamp(value, 0, max_health)
 		EventBus.boss_health_changed.emit(current_health)
 		if current_health == 0:
+			died = true
 			EventBus.boss_died.emit()
-		
+
+var died: bool = false
 
 func _ready() -> void:
 	EventBus.boss_get_max_health.emit(max_health)
@@ -23,10 +25,11 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if player:
-		shoot_point.look_at(player.global_position)
-	
-	move_and_slide()
+	if died == false:
+		if player:
+			shoot_point.look_at(player.global_position)
+		
+		move_and_slide()
 
 
 func take_damage(amount: float) -> bool:
@@ -38,9 +41,10 @@ func take_damage(amount: float) -> bool:
 	return true
 
 func push_away(body) -> void:
-	if body is Player:
-		body.external_velocity -= (global_position - body.global_position).normalized() * 500
-		body.take_damage(damage_on_pushback)
+	if died == false:
+		if body is Player:
+			body.external_velocity -= (global_position - body.global_position).normalized() * 500
+			body.take_damage(damage_on_pushback)
 
 
 func _on_push_back_box_body_entered(body: Node2D) -> void:

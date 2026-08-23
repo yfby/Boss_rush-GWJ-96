@@ -7,14 +7,15 @@ var death_ui: DeathScreen = null
 
 enum CURRENT_LEVEL {
 	TUTORIAL,
-	WORM_LEVEL
+	WORM_LEVEL,
+	ROBOT_LEVEL
 }
 
 var progress: CURRENT_LEVEL
 
 # Load new scene
 func _ready() -> void:
-	load_tutorial()
+	load_robot_level()
 
 func load_tutorial() -> void:
 	progress = CURRENT_LEVEL.TUTORIAL
@@ -28,7 +29,14 @@ func load_worm_level() -> void:
 	SceneManager.change_scene("res://scenes/levels/WormBossLevel.tscn")
 	await SceneManager.level_loaded
 	SceneManager.current_level.player_died.connect(_death_screen)
-	#SceneManager.current_level.level_finished.connect(load_worm_level) # ROBOT LEVEL
+	SceneManager.current_level.level_finished.connect(load_robot_level)
+
+func load_robot_level() -> void:
+	progress = CURRENT_LEVEL.ROBOT_LEVEL
+	SceneManager.change_scene("res://scenes/levels/RobotBossLevel.tscn")
+	await SceneManager.level_loaded
+	SceneManager.current_level.player_died.connect(_death_screen)
+	#SceneManager.current_level.level_finished.connect(load_worm_level) # win screen
 
 func _death_screen() -> void:
 	if death_screen == true:
@@ -57,5 +65,7 @@ func _respawn() -> void:
 			load_tutorial()
 		CURRENT_LEVEL.WORM_LEVEL:
 			load_worm_level()
+		CURRENT_LEVEL.ROBOT_LEVEL:
+			load_robot_level()
 	death_screen = false
 	death_ui.queue_free()
