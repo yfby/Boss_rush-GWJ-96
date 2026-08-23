@@ -11,6 +11,7 @@ const DIALOG_BOX = preload("res://scenes/ui/dialog_box.tscn")
 @onready var ui_layer: CanvasLayer
 
 var current_dialog: DialogBox = null
+var complete: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,6 +29,10 @@ func _ready() -> void:
 	
 
 func robot_dead() -> void:
+	if complete == true:
+		return
+	
+	complete = true
 	print("robot died")
 	
 	await get_tree().create_timer(1.0).timeout

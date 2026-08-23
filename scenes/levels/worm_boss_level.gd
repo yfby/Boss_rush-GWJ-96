@@ -22,6 +22,7 @@ var little_earthquake: bool = false
 
 var current_boss: WormBoss
 
+var complete: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -86,6 +87,11 @@ func giant_worm_spawns() -> void:
 	health_bar.boss = current_boss.main_head
 
 func worm_dead() -> void:
+	if complete == true:
+		return
+	
+	complete = true
+	
 	await get_tree().create_timer(2.5).timeout
 	
 	current_dialog = DIALOG_BOX.instantiate()
