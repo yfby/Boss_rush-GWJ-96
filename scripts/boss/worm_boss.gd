@@ -4,6 +4,7 @@ extends Boss
 
 
 func _ready() -> void:
+	super._ready()
 	# get player if not given
 	player = get_tree().get_first_node_in_group("Player")
 	

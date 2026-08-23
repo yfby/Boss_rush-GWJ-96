@@ -6,15 +6,39 @@
 [ext_resource type="Script" uid="uid://belquh4lun4d1" path="res://scenes/states/boss_attack.gd" id="3_1l1or"]
 [ext_resource type="Script" uid="uid://bh75rovkwkxd3" path="res://scenes/states/boss_idle.gd" id="4_vr8yq"]
 [ext_resource type="Script" uid="uid://6q4pach4r8bn" path="res://scenes/states/boss_follow.gd" id="5_37ib0"]
+[ext_resource type="Script" uid="uid://c4ace7p41b03q" path="res://scenes/bosses/attacks/new_script.gd" id="5_lunr0"]
+[ext_resource type="PackedScene" uid="uid://ct8hh7fnfsnf2" path="res://scenes/shots/premade_shots/fire_lightning_shot.tscn" id="6_q58lq"]
+[ext_resource type="PackedScene" uid="uid://pv2kmal5dosi" path="res://scenes/shots/premade_shots/earth_fire_shot.tscn" id="7_14wka"]
+[ext_resource type="PackedScene" uid="uid://bg4w3xmv6n54p" path="res://scenes/shots/premade_shots/fire_ice_shot.tscn" id="8_er573"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ndpnn"]
+radius = 17.0
 
-[node name="WormBoss" type="CharacterBody2D" unique_id=171649054 node_paths=PackedStringArray("head_visual", "shoot_point")]
+[sub_resource type="Resource" id="Resource_lunr0"]
+script = ExtResource("5_lunr0")
+shot_data = ExtResource("8_er573")
+metadata/_custom_type_script = "uid://c4ace7p41b03q"
+
+[sub_resource type="Resource" id="Resource_q58lq"]
+script = ExtResource("5_lunr0")
+shot_data = ExtResource("7_14wka")
+metadata/_custom_type_script = "uid://c4ace7p41b03q"
+
+[sub_resource type="Resource" id="Resource_14wka"]
+script = ExtResource("5_lunr0")
+shot_data = ExtResource("6_q58lq")
+metadata/_custom_type_script = "uid://c4ace7p41b03q"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5r1x3"]
+radius = 27.018513
+
+[node name="WormBoss" type="CharacterBody2D" unique_id=171649054 node_paths=PackedStringArray("head_visual", "shoot_point", "push_back_box")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_e5spp")
 head_visual = NodePath("Sprite2D")
 shoot_point = NodePath("ShootPoint")
+push_back_box = NodePath("PushBackBox")
 metadata/_custom_type_script = "uid://c6260uad3rm10"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1927558374]
@@ -33,6 +57,7 @@ metadata/_custom_type_script = "uid://b3u8k1jh287mx"
 [node name="BossAttack" type="Node" parent="StateMachine" unique_id=834760465 node_paths=PackedStringArray("timer", "boss", "animation_player", "sprite", "transition_States")]
 script = ExtResource("3_1l1or")
 timer = NodePath("../../StateTimer")
+attacks = Array[ExtResource("5_lunr0")]([SubResource("Resource_lunr0"), SubResource("Resource_q58lq"), SubResource("Resource_14wka")])
 boss = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 sprite = NodePath("../../Sprite2D")
@@ -62,3 +87,12 @@ metadata/_custom_type_script = "uid://6q4pach4r8bn"
 
 [node name="ShootPoint" type="Marker2D" parent="." unique_id=709575294]
 position = Vector2(19, 0)
+
+[node name="PushBackBox" type="Area2D" parent="." unique_id=215769149]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushBackBox" unique_id=613577649]
+shape = SubResource("CircleShape2D_5r1x3")
+debug_color = Color(0.8676698, 0.3175362, 0.415735, 0.41960785)
+
+[connection signal="body_entered" from="PushBackBox" to="." method="_on_push_back_box_body_entered"]

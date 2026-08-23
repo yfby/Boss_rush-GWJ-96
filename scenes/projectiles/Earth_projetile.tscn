@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dbo4a1e2e0vhp"]
+
+[ext_resource type="Script" uid="uid://bbcdnf8gr2ito" path="res://scripts/weapon/projectile.gd" id="1_psb80"]
+[ext_resource type="Texture2D" uid="uid://0qqxbnfae8gs" path="res://assets/sprites/minions/earth_minion.png" id="2_fr626"]
+[ext_resource type="Script" uid="uid://c8okbg2doh58w" path="res://resources/projectiles/projectile_data.gd" id="2_gd0hf"]
+
+[sub_resource type="Resource" id="Resource_gd0hf"]
+script = ExtResource("2_gd0hf")
+texture = null
+damage = 35.0
+metadata/_custom_type_script = "uid://c8okbg2doh58w"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ndpnn"]
+radius = 8.0
+
+[node name="EarthProjetile" type="Area2D" unique_id=1241111565 node_paths=PackedStringArray("visual")]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_psb80")
+data = SubResource("Resource_gd0hf")
+speed = 20.0
+visual = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://bbcdnf8gr2ito"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2599445]
+shape = SubResource("CircleShape2D_ndpnn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=247933532]
+texture = ExtResource("2_fr626")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

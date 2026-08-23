@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cp12hr1o3d5ab"]
+
+[ext_resource type="Script" uid="uid://bbcdnf8gr2ito" path="res://scripts/weapon/projectile.gd" id="1_7el46"]
+[ext_resource type="Script" uid="uid://c8okbg2doh58w" path="res://resources/projectiles/projectile_data.gd" id="2_bwqej"]
+[ext_resource type="Texture2D" uid="uid://ca1jn0j5ljo08" path="res://assets/sprites/mixed_projectiles.png" id="3_bwqej"]
+
+[sub_resource type="Resource" id="Resource_ndpnn"]
+script = ExtResource("2_bwqej")
+texture = null
+damage = 75.0
+metadata/_custom_type_script = "uid://c8okbg2doh58w"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w1qnw"]
+radius = 6.0
+height = 14.0
+
+[node name="FireEarthLightning" type="Area2D" unique_id=691021161 node_paths=PackedStringArray("visual")]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_7el46")
+data = SubResource("Resource_ndpnn")
+speed = 140.0
+visual = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://bbcdnf8gr2ito"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1824563926]
+shape = SubResource("CapsuleShape2D_w1qnw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=434871387]
+texture = ExtResource("3_bwqej")
+hframes = 6
+vframes = 3
+frame = 15
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

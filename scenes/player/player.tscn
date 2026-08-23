@@ -124,7 +124,7 @@ dash_timer = NodePath("DashTimer")
 invincible_time = 0.5
 invincible_timer = NodePath("InvinicbiltyTimer")
 heal_icon = "uid://b5ixqsu525wym"
-heal_per_charge = 15.0
+heal_per_charge = 45.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1583880687]
 shape = SubResource("CapsuleShape2D_og67c")

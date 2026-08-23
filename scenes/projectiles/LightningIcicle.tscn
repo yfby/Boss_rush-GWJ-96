@@ -32,3 +32,5 @@ texture = ExtResource("2_pwgco")
 hframes = 6
 vframes = 3
 frame = 3
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -30,13 +30,13 @@ func _on_body_entered(body: Node2D) -> void:
 	match target_type:
 		Type.target.PLAYER:
 			if body is Player:
-				print("Taarget was the player")
+				#print("Taarget was the player")
 				if body.has_method("take_damage"):
 					if body.take_damage(data.damage):
 						queue_free()
 		Type.target.BOSS:
 			if body is Boss:
-				print("Taarget was the boss")
+				#print("Taarget was the boss")
 				if body.has_method("take_damage"):
 					if body.take_damage(data.damage):
 						queue_free()

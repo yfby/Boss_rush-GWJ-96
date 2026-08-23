@@ -61,7 +61,6 @@ func _ready() -> void:
 	
 	charge_bar.value = gun.charge_time 
 	charge_bar.max_value = gun.max_charge_time 
-
 	#Setup dash timers
 	dash_timer.wait_time = dash_cooldown
 	invincible_timer.wait_time = invincible_time
@@ -69,8 +68,8 @@ func _ready() -> void:
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("debug_damage"):
-		take_damage(10)
-		#heal(heal_per_charge)
+		heal(heal_per_charge)
+		#take_damage(10)
 		#apply_force((get_global_mouse_position() - global_position).normalized() * -250)
 	if Input.is_action_just_pressed("Dash"):
 		dash()

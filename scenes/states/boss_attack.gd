@@ -6,6 +6,8 @@ class_name BossAttack
 @export var max_state_time: float = 1
 @export var timer: Timer
 
+## when it enters it picks a random attack based on the range
+@export var attacks: Array[Attack]
 
 @export_group("Visuals")
 @export var boss: Boss
@@ -13,32 +15,24 @@ class_name BossAttack
 @export var sprite: Sprite2D
 
 
-## when it neters it picks a random attack based on the range
-
-@export var attacks: Dictionary = {
-	"attack1": {
-		"animation_name": "spread_shot",
-		"shot_data": preload("res://scenes/bosses/shots/boss_spread_shot.tscn")
-	},
-	"attack2": {
-		"animation_name": "burst",
-		"shot_data": preload("res://scenes/bosses/shots/boss_spread_shot.tscn")
-	},
-}
 
 
 func Enter() -> void:
 	#print("entered attack")
 	player = get_tree().get_first_node_in_group("Player") as Player
-	## play attack animation
 	
 	## spawn attack
-	var rand_attack = attacks.keys().pick_random()
-	var attack_data = attacks[rand_attack]
-	var shot_data = attack_data["shot_data"].instantiate() as ShotBase
-	shot_data.shooter = boss.shoot_point
-	boss.add_child(shot_data)
-
+	var rand_attack = attacks.pick_random()
+	var attack_scene = rand_attack.shot_data.instantiate() as ShotBase
+	attack_scene.shooter = boss.shoot_point
+	attack_scene.target_type = Type.target.PLAYER
+	await get_tree().create_timer(rand_attack.charge_time).timeout
+	boss.add_child(attack_scene)
+	
+	## play attack animation
+	if animation_player.has_animation(rand_attack.anim_name):
+		animation_player.play(rand_attack.anim_name)
+	
 	if not timer.timeout.is_connected(transition_to_random):
 		timer.timeout.connect(transition_to_random)
 	timer.wait_time = max_state_time
