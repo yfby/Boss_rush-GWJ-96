@@ -54,7 +54,7 @@ var external_velocity: Vector2 = Vector2.ZERO
 
 @onready var charge_bar: ProgressBar = %ChargeBar
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
-
+@onready var camera: PlayerCamera = $Camera2D
 
 func _ready() -> void:
 	add_to_group("player") # This makes it easier to find the player, and make references
@@ -67,9 +67,8 @@ func _ready() -> void:
 	
 
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("debug_damage"):
+	if Input.is_action_just_pressed("debug_damage") and health < max_health:
 		heal(heal_per_charge)
-		#take_damage(10)
 		#apply_force((get_global_mouse_position() - global_position).normalized() * -250)
 	if Input.is_action_just_pressed("Dash"):
 		dash()
@@ -136,6 +135,7 @@ func heal( amount: float) -> void:
 func take_damage(amount: float) -> bool:
 	if invincible:
 		return false
+	camera.shake(0.4)
 	health -= amount
 	AudioManager.play_audio(SoundEffect.SOUND_EFFECT_TYPE.PLAYER_TAKING_DAMAGE)
 	invincible = true

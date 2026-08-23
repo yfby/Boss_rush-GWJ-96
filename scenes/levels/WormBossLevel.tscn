@@ -2,19 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://dfctgyllh347u" path="res://assets/tilemap/void.png" id="1_7p2x5"]
 [ext_resource type="TileSet" uid="uid://ctg4a4g2qdfod" path="res://setup_tileset.tres" id="1_vaiu2"]
+[ext_resource type="Script" uid="uid://c12wd8qcrsdhq" path="res://scenes/levels/worm_boss_level.gd" id="1_xm8io"]
 [ext_resource type="PackedScene" uid="uid://buyte06wngq77" path="res://scenes/enemies/minions/earth_minion.tscn" id="2_4by5p"]
 [ext_resource type="PackedScene" uid="uid://bmwbqtdq7445p" path="res://scenes/foliage/grass.tscn" id="2_6c5ek"]
 [ext_resource type="PackedScene" uid="uid://3w7d8nqis2ui" path="res://scenes/player/player.tscn" id="2_vaiu2"]
-[ext_resource type="PackedScene" uid="uid://bua8f8a030gjb" path="res://scenes/bosses/worm_part.tscn" id="2_x5pf0"]
-[ext_resource type="PackedScene" uid="uid://b3nbegpoiyrx4" path="res://scenes/bosses/Worm_boss.tscn" id="3_5q67w"]
 [ext_resource type="PackedScene" uid="uid://cnmly5tgc0c0o" path="res://scenes/enemies/minions/fire_minion.tscn" id="3_ml5jq"]
 [ext_resource type="PackedScene" uid="uid://b1g6r8bguw07p" path="res://scenes/enemies/minions/ice_minion.tscn" id="4_4e5k3"]
 [ext_resource type="PackedScene" uid="uid://dqc3xcyylfjyx" path="res://scenes/ui/player_hud.tscn" id="5_5q67w"]
 [ext_resource type="PackedScene" uid="uid://cru3q40d72qbl" path="res://scenes/enemies/minions/lightning_minion.tscn" id="5_m43cv"]
-[ext_resource type="Texture2D" uid="uid://cpg8omxk0vo2e" path="res://assets/sprites/ui/health bar/health_bar_under.png" id="10_2tlee"]
-[ext_resource type="Texture2D" uid="uid://bwj8kneuej84y" path="res://assets/sprites/ui/health bar/health_bar_outline.png" id="11_6c5ek"]
-[ext_resource type="Texture2D" uid="uid://36rliefn0d5o" path="res://assets/sprites/ui/health bar/health_bar_progress.png" id="12_7p2x5"]
-[ext_resource type="Script" uid="uid://de3seswa3a761" path="res://scripts/boss/boss_healt_bar.gd" id="13_xm8io"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xm8io"]
 texture = ExtResource("1_7p2x5")
@@ -39,6 +34,7 @@ texture = ExtResource("1_7p2x5")
 sources/0 = SubResource("TileSetAtlasSource_xm8io")
 
 [node name="WormBossLevel" type="Node2D" unique_id=1455529318]
+script = ExtResource("1_xm8io")
 
 [node name="Enviroment" type="Node2D" parent="." unique_id=1179013382]
 
@@ -549,75 +545,18 @@ position = Vector2(194, 75)
 [node name="IceMinion7" parent="Minions" unique_id=17347968 instance=ExtResource("4_4e5k3")]
 position = Vector2(489, 236)
 
-[node name="Boss" type="Node2D" parent="." unique_id=1337209886]
-
-[node name="WormPart6" parent="Boss" unique_id=769181568 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("2_x5pf0")]
-position = Vector2(561, 166)
-part_to_follow = NodePath("../WormPart5")
-
-[node name="WormPart5" parent="Boss" unique_id=1049889104 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("2_x5pf0")]
-position = Vector2(561, 166)
-part_to_follow = NodePath("../WormPart4")
-
-[node name="WormPart4" parent="Boss" unique_id=204019651 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("2_x5pf0")]
-position = Vector2(561, 166)
-part_to_follow = NodePath("../WormPart3")
-
-[node name="WormPart3" parent="Boss" unique_id=526622063 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("2_x5pf0")]
-position = Vector2(561, 166)
-part_to_follow = NodePath("../WormPart2")
-
-[node name="WormPart2" parent="Boss" unique_id=1644185299 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("2_x5pf0")]
-position = Vector2(561, 166)
-part_to_follow = NodePath("../WormPart")
-
-[node name="WormPart" parent="Boss" unique_id=1015325994 node_paths=PackedStringArray("part_to_follow") instance=ExtResource("2_x5pf0")]
-position = Vector2(561, 166)
-part_to_follow = NodePath("../WormBoss")
-
-[node name="WormBoss" parent="Boss" unique_id=171649054 node_paths=PackedStringArray("player") instance=ExtResource("3_5q67w")]
-position = Vector2(555, 166)
-player = NodePath("../../Player")
+[node name="Boss" type="Node2D" parent="." unique_id=1900792428]
+unique_name_in_owner = true
 
 [node name="Player" parent="." unique_id=389095423 groups=["Player"] instance=ExtResource("2_vaiu2")]
+unique_name_in_owner = true
 position = Vector2(70, 184)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=152068370]
+unique_name_in_owner = true
 
 [node name="HUD" parent="UI" unique_id=1159893243 instance=ExtResource("5_5q67w")]
 
-[node name="BossHealtBar" type="TextureProgressBar" parent="UI/HUD" unique_id=425040987 node_paths=PackedStringArray("boss")]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -179.0
-offset_top = 11.0
-offset_right = -97.40625
-offset_bottom = 17.0
-grow_horizontal = 2
-scale = Vector2(4, 4)
-value = 100.0
-nine_patch_stretch = true
-stretch_margin_left = 3
-stretch_margin_top = 3
-stretch_margin_right = 3
-stretch_margin_bottom = 3
-texture_under = ExtResource("10_2tlee")
-texture_over = ExtResource("11_6c5ek")
-texture_progress = ExtResource("12_7p2x5")
-script = ExtResource("13_xm8io")
-boss = NodePath("../../../Boss/WormBoss")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/HUD/BossHealtBar" unique_id=342488185]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -19.046875
-offset_top = 4.0
-offset_right = 32.40625
-offset_bottom = 13.5
-grow_horizontal = 2
-theme_override_font_sizes/normal_font_size = 8
-bbcode_enabled = true
-text = "WORM OF APOCALYPSE"
+[node name="BossLocationSpawn" type="Marker2D" parent="." unique_id=458131289]
+unique_name_in_owner = true
+position = Vector2(512, 168)
