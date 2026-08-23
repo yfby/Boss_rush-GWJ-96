@@ -1,6 +1,7 @@
 [gd_resource type="TileSet" format=3 uid="uid://br6fio0nk0hr3"]
 
 [ext_resource type="Texture2D" uid="uid://luop5pl2nlqe" path="res://assets/tilemap/tilemap.png" id="1_wjg2q"]
+[ext_resource type="Texture2D" uid="uid://dfctgyllh347u" path="res://assets/tilemap/void.png" id="2_fsael"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4a02d"]
 texture = ExtResource("1_wjg2q")
@@ -185,9 +186,29 @@ texture = ExtResource("1_wjg2q")
 6:3/0/terrains_peering_bit/top_side = 0
 6:3/0/terrains_peering_bit/top_right_corner = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dt4e3"]
+texture = ExtResource("2_fsael")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+
 [resource]
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "inside"
 terrain_set_0/terrain_0/color = Color(0.5019608, 0.85882354, 0.2509804, 1)
+sources/1 = SubResource("TileSetAtlasSource_dt4e3")
 sources/0 = SubResource("TileSetAtlasSource_4a02d")

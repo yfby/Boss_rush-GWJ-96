@@ -41,13 +41,16 @@ var vacuum_active: bool = false:
 		vacuum_active = value
 		cannon_effects.vacuum(value)
 
+var able_to_shoot: bool = true
+var able_to_vacuum: bool = true
+
 func _input(_event: InputEvent) -> void:
 	# input
-	if Input.is_action_just_pressed("shoot") and vacuum_active == false and gun_storage.size() >= 3:
+	if Input.is_action_just_pressed("shoot") and vacuum_active == false and gun_storage.size() >= 3 and able_to_shoot:
 		is_charging = true
 		charge_time = 0.0
 	
-	if Input.is_action_pressed("vacuum") and is_charging == false and gun_storage.size() < max_storage_size:
+	if Input.is_action_pressed("vacuum") and is_charging == false and gun_storage.size() < max_storage_size and able_to_vacuum:
 		vacuum(true)
 	
 	if Input.is_action_just_pressed("vacuum") and gun_storage.size() >= max_storage_size:
