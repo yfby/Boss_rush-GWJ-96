@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dl314ahyftkxk" path="res://assets/sprites/ui/health bar/heart_icon.png" id="7_3cn05"]
 [ext_resource type="Script" uid="uid://ccuu4m2fw5bu8" path="res://scenes/ui/combination_text.gd" id="7_nh6vl"]
 [ext_resource type="Texture2D" uid="uid://b5ixqsu525wym" path="res://assets/sprites/ui/health bar/plus_icon.png" id="8_bhaj2"]
+[ext_resource type="PackedScene" uid="uid://c3scv821p5v6e" path="res://scenes/ui/worm_health_bar.tscn" id="10_c78lu"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1159893243]
 
@@ -121,3 +122,6 @@ offset_right = 0.5
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("7_nh6vl")
+
+[node name="BossHealtBar" parent="." unique_id=278089460 instance=ExtResource("10_c78lu")]
+visible = false

@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://b1g6r8bguw07p" path="res://scenes/enemies/minions/ice_minion.tscn" id="4_4e5k3"]
 [ext_resource type="PackedScene" uid="uid://dqc3xcyylfjyx" path="res://scenes/ui/player_hud.tscn" id="5_5q67w"]
 [ext_resource type="PackedScene" uid="uid://cru3q40d72qbl" path="res://scenes/enemies/minions/lightning_minion.tscn" id="5_m43cv"]
+[ext_resource type="PackedScene" uid="uid://c3scv821p5v6e" path="res://scenes/ui/worm_health_bar.tscn" id="11_4e5k3"]
+[ext_resource type="PackedScene" uid="uid://h8rr6hjm3a3q" path="res://scenes/enemy_spawner.tscn" id="12_m43cv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xm8io"]
 texture = ExtResource("1_7p2x5")
@@ -33,8 +35,9 @@ texture = ExtResource("1_7p2x5")
 [sub_resource type="TileSet" id="TileSet_16mhy"]
 sources/0 = SubResource("TileSetAtlasSource_xm8io")
 
-[node name="WormBossLevel" type="Node2D" unique_id=1455529318]
+[node name="WormBossLevel" type="Node2D" unique_id=1455529318 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("1_xm8io")
+health_bar = NodePath("UI/BossHealtBar2")
 
 [node name="Enviroment" type="Node2D" parent="." unique_id=1179013382]
 
@@ -557,6 +560,15 @@ unique_name_in_owner = true
 
 [node name="HUD" parent="UI" unique_id=1159893243 instance=ExtResource("5_5q67w")]
 
+[node name="BossHealtBar2" parent="UI" unique_id=278089460 instance=ExtResource("11_4e5k3")]
+unique_name_in_owner = true
+visible = false
+max_value = 500.0
+value = 500.0
+
 [node name="BossLocationSpawn" type="Marker2D" parent="." unique_id=458131289]
 unique_name_in_owner = true
 position = Vector2(512, 168)
+
+[node name="enemy_spawner" parent="." unique_id=1075598057 instance=ExtResource("12_m43cv")]
+position = Vector2(-100, -5)
