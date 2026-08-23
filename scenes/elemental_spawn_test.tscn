@@ -1,20 +1,28 @@
 [gd_scene format=3 uid="uid://cu3y3v5nitnce"]
 
 [ext_resource type="Script" uid="uid://bwo3om3mav2p7" path="res://scenes/tests/elemental_spawn_test.gd" id="1_3o0sd"]
-[ext_resource type="Texture2D" uid="uid://bb3nee0fj330i" path="res://assets/sprites/minions/fire_minion.png" id="1_70yqv"]
+[ext_resource type="PackedScene" uid="uid://3w7d8nqis2ui" path="res://scenes/player/player.tscn" id="2_3o0sd"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_malew"]
-radius = 5.0
+[sub_resource type="Curve2D" id="Curve2D_uat0k"]
 
-[node name="Area2D" type="Area2D" unique_id=800230212]
+[node name="Spawner" type="Node" unique_id=842698107]
 script = ExtResource("1_3o0sd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=373177251]
-shape = SubResource("CircleShape2D_malew")
+[node name="Player" parent="." unique_id=389095423 instance=ExtResource("2_3o0sd")]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=322387610]
-texture = ExtResource("1_70yqv")
+[node name="mob_spawn_timer" type="Timer" parent="." unique_id=284260613]
+wait_time = 0.25
 
-[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1731959995]
-offset_right = 4.0
-offset_bottom = 27.0
+[node name="start_timer" type="Timer" parent="." unique_id=182245678]
+one_shot = true
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=47458825]
+
+[node name="Marker2D2" type="Marker2D" parent="." unique_id=1156373230]
+
+[node name="Marker2D3" type="Marker2D" parent="." unique_id=784444434]
+
+[node name="Marker2D4" type="Marker2D" parent="." unique_id=1608624984]
+
+[node name="Path2D" type="Path2D" parent="." unique_id=1594800701]
+curve = SubResource("Curve2D_uat0k")
