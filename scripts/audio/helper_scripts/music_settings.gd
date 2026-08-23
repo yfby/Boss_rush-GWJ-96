@@ -20,8 +20,9 @@ extends Resource
 ## Example: MENU_MUSIC, BATTLE_MUSIC, VICTORY_MUSIC
 enum TRACK_TYPE {
 	UNASSIGNED_MUSIC_TRACK, # Add new tracks below this line, separated by commas
+	TUTORIAL_LEVEL,
 	WORM_BOSS_P1,
-	DEATH_SCREEN
+	DEATH_SCREEN,
 }
 
 ## -------------------------- Inspector Settings - Configure these for each MusicTrack resource in the inspector ----------##

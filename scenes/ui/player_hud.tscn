@@ -110,8 +110,14 @@ texture = ExtResource("8_bhaj2")
 expand_mode = 2
 
 [node name="CombinationText" type="Label" parent="." unique_id=1472767800]
-offset_left = 37.0
-offset_top = 109.0
-offset_right = 77.0
-offset_bottom = 122.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -0.5
+offset_top = -13.0
+offset_right = 0.5
+grow_horizontal = 2
+grow_vertical = 0
 script = ExtResource("7_nh6vl")
