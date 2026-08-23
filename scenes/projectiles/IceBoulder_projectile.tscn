@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://ujebxyhtembt"]
+
+[ext_resource type="Script" uid="uid://bbcdnf8gr2ito" path="res://scripts/weapon/projectile.gd" id="1_qu68r"]
+[ext_resource type="Script" uid="uid://c8okbg2doh58w" path="res://resources/projectiles/projectile_data.gd" id="2_yolvb"]
+[ext_resource type="Texture2D" uid="uid://ca1jn0j5ljo08" path="res://assets/sprites/mixed_projectiles.png" id="3_ea0iy"]
+
+[sub_resource type="Resource" id="Resource_ndpnn"]
+script = ExtResource("2_yolvb")
+texture = null
+damage = 50.0
+metadata/_custom_type_script = "uid://c8okbg2doh58w"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5r1x3"]
+radius = 8.0
+
+[node name="IceBoulder" type="Area2D" unique_id=833573008 node_paths=PackedStringArray("visual")]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_qu68r")
+data = SubResource("Resource_ndpnn")
+speed = 80.0
+visual = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://bbcdnf8gr2ito"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1799320623]
+shape = SubResource("CircleShape2D_5r1x3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=956608119]
+texture = ExtResource("3_ea0iy")
+hframes = 6
+vframes = 3
+frame = 4
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

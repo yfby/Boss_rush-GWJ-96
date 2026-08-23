@@ -121,6 +121,7 @@ gun = NodePath("Cannon")
 friction = 300.0
 external_velocity_decay = 10.0
 dash_timer = NodePath("DashTimer")
+invincible_time = 0.5
 invincible_timer = NodePath("InvinicbiltyTimer")
 heal_icon = "uid://b5ixqsu525wym"
 heal_per_charge = 15.0

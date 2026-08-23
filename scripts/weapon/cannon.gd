@@ -134,7 +134,7 @@ func do_charged_attack(power: float) -> void:
 	## figure out the projectiles
 	var shot = ElementalCombos.get_elemental_combo(barrel)
 	var shot_node = shot.instantiate() as ShotBase
-	shot_node.power = power * 0.1
+	shot_node.power = power 
 	shot_node.shooter = self
 	add_child(shot_node)
 	
