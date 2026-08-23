@@ -36,7 +36,11 @@ func load_robot_level() -> void:
 	SceneManager.change_scene("res://scenes/levels/RobotBossLevel.tscn")
 	await SceneManager.level_loaded
 	SceneManager.current_level.player_died.connect(_death_screen)
-	#SceneManager.current_level.level_finished.connect(load_worm_level) # win screen
+	SceneManager.current_level.level_finished.connect(credits) # win screen
+
+func credits() -> void:
+	SceneManager.change_scene("res://scenes/ui/credits.tscn")
+	AudioManager.stop_all_music(2)
 
 func _death_screen() -> void:
 	if death_screen == true:

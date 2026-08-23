@@ -86,9 +86,39 @@ func giant_worm_spawns() -> void:
 	health_bar.boss = current_boss.main_head
 
 func worm_dead() -> void:
-	print("worm is dead")
-	#TODO
-	pass
+	await get_tree().create_timer(2.5).timeout
+	
+	current_dialog = DIALOG_BOX.instantiate()
+	ui_layer.add_child(current_dialog)
+	
+	current_dialog.start_dialogue([
+		{"name": "You", "text": "...I think it's dead."},
+		{"name": "Static", "text": "It's dead?! You're alive? Both things happened?"},
+		{"name": "You", "text": "Somehow, yes."},
+		{"name": "Static", "text": "See, told you the dash thing would—"},
+		{"name": "You", "text": "You went silent the whole time."},
+		{"name": "Static", "text": "Rooting for you. Internally. Very loudly."},
+	])
+	current_dialog.dialogue_finished.connect(earthquake_wtf)
+
+func earthquake_wtf() -> void:
+	await get_tree().create_timer(1.0).timeout
+	little_earthquake = true
+	
+	current_dialog.queue_free()
+	current_dialog = DIALOG_BOX.instantiate()
+	ui_layer.add_child(current_dialog)
+	
+	current_dialog.start_dialogue([
+		{"name": "You", "text": "...why is the ground doing that again."},
+		{"name": "Static", "text": "That's not possible, there's only supposed to be—"},
+		{"name": "You", "text": "IT'S HAPPENING AGAIN—"}
+	])
+	current_dialog.dialogue_finished.connect(wtf_is_this)
+
+func wtf_is_this() -> void:
+	await get_tree().create_timer(2.5).timeout
+	level_finished.emit()
 
 func _on_player_died() -> void:
 	ui_layer.queue_free()
