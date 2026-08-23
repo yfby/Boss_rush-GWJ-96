@@ -1,17 +1,14 @@
 [gd_scene format=3 uid="uid://h8rr6hjm3a3q"]
 
 [ext_resource type="Script" uid="uid://cw1b0rndvxe1p" path="res://scripts/enemy_spawner/enemy_spawner.gd" id="1_ks1gq"]
-[ext_resource type="PackedScene" uid="uid://d3hb374lpu7ki" path="res://scenes/enemies/minions/MinionBase.tscn" id="2_devoi"]
 [ext_resource type="PackedScene" uid="uid://buyte06wngq77" path="res://scenes/enemies/minions/earth_minion.tscn" id="2_sukom"]
 [ext_resource type="PackedScene" uid="uid://cnmly5tgc0c0o" path="res://scenes/enemies/minions/fire_minion.tscn" id="3_tovkt"]
-[ext_resource type="PackedScene" uid="uid://3w7d8nqis2ui" path="res://scenes/player/player.tscn" id="3_xl0gr"]
 [ext_resource type="PackedScene" uid="uid://b1g6r8bguw07p" path="res://scenes/enemies/minions/ice_minion.tscn" id="4_e1hw7"]
 [ext_resource type="PackedScene" uid="uid://cru3q40d72qbl" path="res://scenes/enemies/minions/lightning_minion.tscn" id="5_22nel"]
 
-[node name="enemy_spawner" type="Node2D" unique_id=1075598057 node_paths=PackedStringArray("minion_test")]
+[node name="enemy_spawner" type="Node2D" unique_id=1075598057]
 script = ExtResource("1_ks1gq")
 elemental_spawn = Array[PackedScene]([ExtResource("2_sukom"), ExtResource("3_tovkt"), ExtResource("4_e1hw7"), ExtResource("5_22nel")])
-minion_test = NodePath("MinionTest")
 
 [node name="top_left_spawn" type="Marker2D" parent="." unique_id=409056488]
 position = Vector2(340, 0)
@@ -29,11 +26,4 @@ position = Vector2(639, 360)
 wait_time = 0.23
 autostart = true
 
-[node name="MinionTest" parent="." unique_id=1959686566 instance=ExtResource("2_devoi")]
-position = Vector2(449, 143)
-element = 1
-
-[node name="Player" parent="." unique_id=389095423 instance=ExtResource("3_xl0gr")]
-
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
-[connection signal="collected" from="MinionTest" to="." method="_on_minion_test_collected"]

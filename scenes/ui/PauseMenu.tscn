@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://7ydma7xysfhe"]
+
+[ext_resource type="Script" uid="uid://c284l66bkqek3" path="res://scripts/ui/pause_menu.gd" id="1_vb6pq"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1572612216 node_paths=PackedStringArray("master_slider", "music_slider", "sfx_slider")]
+process_mode = 3
+script = ExtResource("1_vb6pq")
+master_slider = NodePath("PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider/Master")
+music_slider = NodePath("PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider2/Music")
+sfx_slider = NodePath("PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider3/SFX")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1386139286]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=409252786]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1364937206]
+custom_maximum_size = Vector2(300, 600)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1717439397]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave]PAUSED[/wave]"
+fit_content = true
+
+[node name="ResumeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=93087775]
+layout_mode = 2
+text = "RESUME
+"
+
+[node name="Volume Sliders" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2140466823]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders" unique_id=730329370]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider" unique_id=1632969585]
+layout_mode = 2
+text = "Master"
+
+[node name="Master" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider" unique_id=469720940]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Slider2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders" unique_id=1938425778]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider2" unique_id=106821491]
+layout_mode = 2
+text = "Music"
+
+[node name="Music" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider2" unique_id=1965706404]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Slider3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders" unique_id=308891264]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider3" unique_id=1918827402]
+layout_mode = 2
+text = "SFX"
+
+[node name="SFX" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider3" unique_id=1923416350]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="RestartButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1941306103]
+layout_mode = 2
+text = "RESTART
+"
+
+[node name="ExitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1392805411]
+layout_mode = 2
+text = "EXIT GAME
+
+"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider/Master" to="." method="_on_master_value_changed"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider2/Music" to="." method="_on_music_value_changed"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/Volume Sliders/Slider3/SFX" to="." method="_on_sfx_value_changed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

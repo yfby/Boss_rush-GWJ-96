@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://gud2nptnrs44" path="res://scenes/bosses/RobotBoss.tscn" id="2_6anec"]
 [ext_resource type="PackedScene" uid="uid://3w7d8nqis2ui" path="res://scenes/player/player.tscn" id="3_2liiw"]
 [ext_resource type="PackedScene" uid="uid://dqc3xcyylfjyx" path="res://scenes/ui/player_hud.tscn" id="4_3suce"]
+[ext_resource type="PackedScene" uid="uid://h8rr6hjm3a3q" path="res://scenes/enemy_spawner.tscn" id="5_6anec"]
 
 [node name="RobotBossLevel" type="Node2D" unique_id=543989440]
 
@@ -21,3 +22,6 @@ player = NodePath("../Player")
 position = Vector2(62, 107)
 
 [node name="HUD" parent="." unique_id=1159893243 instance=ExtResource("4_3suce")]
+
+[node name="enemy_spawner" parent="." unique_id=1075598057 instance=ExtResource("5_6anec")]
+position = Vector2(-137, -38)

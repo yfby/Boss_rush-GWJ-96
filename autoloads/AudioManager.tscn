@@ -29,6 +29,7 @@ resource_name = "Cannon"
 script = ExtResource("2_0f8da")
 type = 4
 sound_effect = ExtResource("4_466ms")
+volume = -9.5
 bus_name = &"SFX"
 metadata/_custom_type_script = "uid://d0osm5d7tp6qb"
 
@@ -102,12 +103,14 @@ pitch_randomness = 0.1
 metadata/_custom_type_script = "uid://d0osm5d7tp6qb"
 
 [sub_resource type="Resource" id="Resource_evin1"]
+resource_name = "PickupMinion"
 script = ExtResource("2_0f8da")
 type = 2
 sound_effect = ExtResource("11_k3oxk")
 metadata/_custom_type_script = "uid://d0osm5d7tp6qb"
 
 [sub_resource type="Resource" id="Resource_3gk7c"]
+resource_name = "Dialog"
 script = ExtResource("2_0f8da")
 type = 1
 sound_effect = ExtResource("12_evin1")
@@ -165,6 +168,7 @@ tags = {
 loop = true
 
 [sub_resource type="Resource" id="Resource_k3oxk"]
+resource_name = "Tutorial music"
 script = ExtResource("4_2wd2j")
 track_type = 1
 stream = SubResource("AudioStreamOggVorbis_h8jr5")
