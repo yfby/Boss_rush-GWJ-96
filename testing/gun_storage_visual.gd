@@ -14,7 +14,7 @@ extends VBoxContainer
 	Type.elements.FIRE: preload("uid://bb3nee0fj330i"),
 	Type.elements.ICE: preload("uid://eujy5j8tlopn"),
 	Type.elements.LIGHTNING: preload("uid://jew1sjk6ux1u"),
-	Type.elements.EARTH: preload("uid://w4nw1k0qbqnv"),
+	Type.elements.EARTH: preload("uid://0qqxbnfae8gs"),
 }
 
 

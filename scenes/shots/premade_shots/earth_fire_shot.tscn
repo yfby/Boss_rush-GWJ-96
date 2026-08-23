@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://pv2kmal5dosi"]
+
+[ext_resource type="PackedScene" uid="uid://dqw0lryrtcdtn" path="res://scenes/shots/shot_base.tscn" id="1_my85o"]
+[ext_resource type="PackedScene" uid="uid://bdsmw5ggntg0r" path="res://scenes/projectiles/LavaBoulder_projectile.tscn" id="2_eqivf"]
+
+[node name="EarthFireShot" unique_id=1113263127 instance=ExtResource("1_my85o")]
+projectiles = Array[PackedScene]([ExtResource("2_eqivf")])

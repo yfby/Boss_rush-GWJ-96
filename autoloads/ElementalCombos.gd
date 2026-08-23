@@ -22,27 +22,27 @@ var combos: Dictionary = {
 	## 2 differnt elements
 	"water": {
 		"recepie": { Type.elements.FIRE : 1, Type.elements.ICE : 1, },
-		"shot_data": preload("res://scenes/shots/premade_shots/burst.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/fire_ice_shot.tscn")
 	},
 	"firebolt": {
 		"recepie": { Type.elements.FIRE : 1, Type.elements.LIGHTNING : 1, },
-		"shot_data": preload("res://scenes/shots/premade_shots/spread_shot.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/fire_lightning_shot.tscn")
 	},
 	"lava": {
 		"recepie": { Type.elements.FIRE : 1, Type.elements.EARTH : 1, },
-		"shot_data": preload("res://scenes/shots/premade_shots/spread_shot.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/earth_fire_shot.tscn")
 	},
 	"mud": {
 		"recepie": { Type.elements.ICE : 1, Type.elements.EARTH : 1, },
-		"shot_data": preload("res://scenes/shots/premade_shots/spread_shot.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/ice_earth_shot.tscn")
 	},
 	"lightning boulder": {
 		"recepie": { Type.elements.LIGHTNING : 1, Type.elements.EARTH : 1, },
-		"shot_data": preload("res://scenes/shots/premade_shots/spread_shot.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/earth_lightning_shot.tscn")
 	},
 	"ice lightning": {
 		"recepie": { Type.elements.LIGHTNING : 1, Type.elements.ICE : 1, },
-		"shot_data": preload("res://scenes/shots/premade_shots/spread_shot.tscn")
+		"shot_data": preload("res://scenes/shots/premade_shots/ice_lightning_shot.tscn")
 	},
 	
 	## 3 different types

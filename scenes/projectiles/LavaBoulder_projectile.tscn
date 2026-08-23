@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bdsmw5ggntg0r"]
+
+[ext_resource type="Script" uid="uid://bbcdnf8gr2ito" path="res://scripts/weapon/projectile.gd" id="1_jjmu1"]
+[ext_resource type="Script" uid="uid://c8okbg2doh58w" path="res://resources/projectiles/projectile_data.gd" id="2_ksfy4"]
+[ext_resource type="Texture2D" uid="uid://ca1jn0j5ljo08" path="res://assets/sprites/mixed_projectiles.png" id="2_tn1xn"]
+
+[sub_resource type="Resource" id="Resource_jvaoa"]
+script = ExtResource("2_ksfy4")
+texture = null
+damage = 65.0
+metadata/_custom_type_script = "uid://c8okbg2doh58w"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ndpnn"]
+radius = 8.0
+
+[node name="LavaBoulderProjectile" type="Area2D" unique_id=1810641778 node_paths=PackedStringArray("visual")]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_jjmu1")
+data = SubResource("Resource_jvaoa")
+speed = 60.0
+visual = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://bbcdnf8gr2ito"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=523073558]
+shape = SubResource("CircleShape2D_ndpnn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2110143760]
+texture = ExtResource("2_tn1xn")
+hframes = 6
+vframes = 3
+frame = 2
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

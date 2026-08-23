@@ -69,12 +69,11 @@ func _ready() -> void:
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("debug_damage"):
-		
-		heal(heal_per_charge)
+		take_damage(10)
+		#heal(heal_per_charge)
 		#apply_force((get_global_mouse_position() - global_position).normalized() * -250)
 	if Input.is_action_just_pressed("Dash"):
 		dash()
-		take_damage(10)
 		
 
 func _physics_process(delta: float) -> void:
@@ -140,6 +139,8 @@ func take_damage(amount: float) -> bool:
 		return false
 	health -= amount
 	AudioManager.play_audio(SoundEffect.SOUND_EFFECT_TYPE.PLAYER_TAKING_DAMAGE)
+	invincible = true
+	invincible_timer.start()
 	return true
 
 

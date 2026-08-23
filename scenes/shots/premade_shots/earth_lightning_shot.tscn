@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://s6v1dq028x6n"]
+
+[ext_resource type="PackedScene" uid="uid://dqw0lryrtcdtn" path="res://scenes/shots/shot_base.tscn" id="1_qigxn"]
+[ext_resource type="PackedScene" uid="uid://cpdqn3wymea5c" path="res://scenes/projectiles/LightningBoulder_projectile.tscn" id="2_f1krq"]
+
+[node name="EarthLightningShot" unique_id=1113263127 instance=ExtResource("1_qigxn")]
+projectiles = Array[PackedScene]([ExtResource("2_f1krq")])

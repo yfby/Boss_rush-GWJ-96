@@ -15,7 +15,7 @@ var target_type: Type.target
 func _ready() -> void:
 	scale = Vector2(1, 1) * (1.0 + power)
 	speed *= 1+power
-	if data.texture:
+	if data.texture and visual:
 		visual.texture = load(data.texture)
 
 
