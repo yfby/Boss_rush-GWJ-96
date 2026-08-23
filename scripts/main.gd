@@ -15,7 +15,7 @@ var progress: CURRENT_LEVEL
 
 # Load new scene
 func _ready() -> void:
-	load_robot_level()
+	load_tutorial()
 
 func load_tutorial() -> void:
 	progress = CURRENT_LEVEL.TUTORIAL
