@@ -1,12 +1,7 @@
 extends Node2D
 
 @export var elemental_spawn: Array[PackedScene] = []
-@export var minion_test: Minion
 @export var spawn_limit = 30
-@export var element: Type.elements
-
-
-@onready var minions = get_node("/root/enemy_spawner")
 
 var spawn_points = []
 
@@ -24,7 +19,6 @@ func spawn_elements():
 		var minion = elemental_spawn.pick_random().instantiate()
 		minion.position = spawn_points.pick_random().position
 		
-
 		add_child(minion)
 
 func _on_timer_timeout() -> void:

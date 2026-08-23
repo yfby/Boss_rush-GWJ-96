@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3nbegpoiyrx4"]
 
 [ext_resource type="Script" uid="uid://bre5v3mjnjhfv" path="res://scripts/boss/worm_boss.gd" id="1_e5spp"]
-[ext_resource type="Texture2D" uid="uid://bv33yhy3yhvu8" path="res://assets/sprites/boss/worm_head.png" id="2_1l1or"]
+[ext_resource type="Texture2D" uid="uid://da08xpnmuwaad" path="res://assets/sprites/boss/centapede.png" id="2_q58lq"]
 [ext_resource type="Script" uid="uid://b3u8k1jh287mx" path="res://scenes/bosses/state_machine.gd" id="2_tcyao"]
 [ext_resource type="Script" uid="uid://belquh4lun4d1" path="res://scenes/states/boss_attack.gd" id="3_1l1or"]
 [ext_resource type="Script" uid="uid://bh75rovkwkxd3" path="res://scenes/states/boss_idle.gd" id="4_vr8yq"]
@@ -10,22 +10,87 @@
 [ext_resource type="PackedScene" uid="uid://ct8hh7fnfsnf2" path="res://scenes/shots/premade_shots/fire_lightning_shot.tscn" id="6_q58lq"]
 [ext_resource type="PackedScene" uid="uid://pv2kmal5dosi" path="res://scenes/shots/premade_shots/earth_fire_shot.tscn" id="7_14wka"]
 [ext_resource type="PackedScene" uid="uid://bg4w3xmv6n54p" path="res://scenes/shots/premade_shots/fire_ice_shot.tscn" id="8_er573"]
+[ext_resource type="Texture2D" uid="uid://cuudw85n5s75p" path="res://assets/sprites/boss/shoot_particles.png" id="11_q58lq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ndpnn"]
 radius = 17.0
 
+[sub_resource type="Animation" id="Animation_q58lq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Charge:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Charge:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_14wka"]
+resource_name = "shoot"
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Charge:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Charge:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_er573"]
+_data = {
+&"RESET": SubResource("Animation_q58lq"),
+&"shoot": SubResource("Animation_14wka")
+}
+
 [sub_resource type="Resource" id="Resource_lunr0"]
 script = ExtResource("5_lunr0")
+anim_name = &"shoot"
 shot_data = ExtResource("8_er573")
 metadata/_custom_type_script = "uid://c4ace7p41b03q"
 
 [sub_resource type="Resource" id="Resource_q58lq"]
 script = ExtResource("5_lunr0")
+anim_name = &"shoot"
 shot_data = ExtResource("7_14wka")
 metadata/_custom_type_script = "uid://c4ace7p41b03q"
 
 [sub_resource type="Resource" id="Resource_14wka"]
 script = ExtResource("5_lunr0")
+anim_name = &"shoot"
 shot_data = ExtResource("6_q58lq")
 metadata/_custom_type_script = "uid://c4ace7p41b03q"
 
@@ -45,9 +110,17 @@ metadata/_custom_type_script = "uid://c6260uad3rm10"
 shape = SubResource("CircleShape2D_ndpnn")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1121518547]
-texture = ExtResource("2_1l1or")
+texture = ExtResource("2_q58lq")
+hframes = 2
+frame = 1
+
+[node name="Charge" type="Sprite2D" parent="Sprite2D" unique_id=362377672]
+position = Vector2(19, 0)
+texture = ExtResource("11_q58lq")
+hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1456161033]
+libraries/ = SubResource("AnimationLibrary_er573")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1735615552 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_tcyao")
@@ -89,6 +162,7 @@ metadata/_custom_type_script = "uid://6q4pach4r8bn"
 position = Vector2(19, 0)
 
 [node name="PushBackBox" type="Area2D" parent="." unique_id=215769149]
+visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PushBackBox" unique_id=613577649]

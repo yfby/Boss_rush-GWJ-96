@@ -26,13 +26,14 @@ func Enter() -> void:
 	var attack_scene = rand_attack.shot_data.instantiate() as ShotBase
 	attack_scene.shooter = boss.shoot_point
 	attack_scene.target_type = Type.target.PLAYER
-	await get_tree().create_timer(rand_attack.charge_time).timeout
-	boss.add_child(attack_scene)
+	#await get_tree().create_timer(rand_attack.charge_time).timeout
 	
 	## play attack animation
 	if animation_player.has_animation(rand_attack.anim_name):
 		animation_player.play(rand_attack.anim_name)
-	
+	if animation_player.is_playing():
+		await animation_player.animation_finished
+	boss.add_child(attack_scene)
 	if not timer.timeout.is_connected(transition_to_random):
 		timer.timeout.connect(transition_to_random)
 	timer.wait_time = max_state_time
